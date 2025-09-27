@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AR Планети</title>
+
+  <!-- Підключаємо model-viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+    }
+    model-viewer {
+      flex: 1;
+      width: 100vw;
+    }
+    .controls {
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      background: rgba(0,0,0,0.7);
+    }
+    button {
+      background: #ff3c00;
+      border: none;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button[slot="ar-button"] {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <model-viewer
+    id="planetViewer"
+    src="earth.glb"
+    ios-src="earth.usdz"
+    alt="Планета"
+    ar
+    ar-modes="scene-viewer quick-look webxr"
+    auto-rotate
+    camera-controls
+    exposure="1"
+    shadow-intensity="1">
+      <button slot="ar-button">🔭 Подивитись у AR</button>
+  </model-viewer>
+
+  <div class="controls">
+    <button onclick="showPlanet('earth')">🌍 Земля</button>
+    <button onclick="showPlanet('mars')">🔴 Марс</button>
+  </div>
+
+  <script>
+    function showPlanet(planet) {
+      const viewer = document.getElementById('planetViewer');
+      viewer.src = planet + '.glb';
+      viewer.iosSrc = planet + '.usdz';
+      viewer.alt = planet;
+    }
+  </script>
+
+</body>
+</html>
